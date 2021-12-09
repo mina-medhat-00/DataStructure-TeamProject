@@ -43,7 +43,7 @@ public class Minifying : MonoBehaviour
 
                 if( !flag & endingIndex - startingIndex>0)
                 {
-                    str = str.Remove(startingIndex, endingIndex - startingIndex);
+                    str = str.Remove(startingIndex, endingIndex - startingIndex+1);
                     index -= endingIndex - startingIndex;
                 }
 
