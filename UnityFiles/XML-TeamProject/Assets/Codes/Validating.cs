@@ -97,7 +97,11 @@ using UnityEngine;
                         return;
                     }
 
-                    if (temp.Equals("SELF-CLOSING-TAG")) continue; // if it's self closing
+                    // if it's self closing
+                    if (temp.Equals("SELF-CLOSING-TAG"))
+                    {
+                        continue; 
+                    }
 
                     stack.Push(temp);
                 }

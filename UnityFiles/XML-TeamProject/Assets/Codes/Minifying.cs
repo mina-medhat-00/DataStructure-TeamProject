@@ -6,7 +6,6 @@ public class Minifying : MonoBehaviour
 {
     public void Minify()
     {
-        Debug.Log("did something");
         string str = GameObject.FindGameObjectWithTag("mainText").GetComponent<UnityEngine.UI.InputField>().text;
         str=str.Trim();
         str=str.Replace("\n", "");
@@ -14,37 +13,42 @@ public class Minifying : MonoBehaviour
 
         for (int index = 0; index < str.Length; index++)
         {
-            if(str[index]=='<')
+            bool flag = true;
+
+            if (str[index]=='>')
             {
-                if(str[++index]=='/')
+                int startingIndex = index+1;
+                int endingIndex = startingIndex;
+                index++;
+                while (index < str.Length)
                 {
-                    while(str[index]!='>')
+                    if (str[index] != ' ')
                     {
+                        flag = false;
+                        break;
+                    }
+
+                    if (str[index] != '<')
+                    {
+                        endingIndex = index;
                         index++;
                     }
-                    int startingIndex = index+1;
-                    int endingIndex = startingIndex;
-                    while (index < str.Length)
+
+                    else
                     {
-                        if (str[index] != '<')
-                        {
-                            index++;
-                            endingIndex = index;
-                        }
-                        else
-                        {
-                            break;
-
-                        }
-
+                        break;
                     }
+                }
+
+
+                if( !flag & endingIndex - startingIndex>0)
+                {
                     str = str.Remove(startingIndex, endingIndex - startingIndex);
                     index -= endingIndex - startingIndex;
                 }
 
             }
         }
-        Debug.Log(str);
         GameObject.FindGameObjectWithTag("mainText").GetComponent<UnityEngine.UI.InputField>().text = str;
     }
 }
